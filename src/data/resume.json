@@ -7,21 +7,35 @@
       "city": "Milan",
       "countryCode": "IT"
     },
-    "summary": "Full-Stack Developer with 6+ years of experience across finance and e-commerce. Specialised in .NET and Angular, with a track record of modernising legacy systems and leading cross-functional teams. Currently acting as team lead and lead Microsoft developer at Alten."
+    "summary": "Full-Stack Developer with 7+ years of experience across finance and e-commerce. Specialised in the Microsoft stack, with a track record of modernising legacy systems and leading cross-functional teams. Currently working as Developer Specialist at Moltiply Group on large-scale financial applications for major banking clients."
   },
   "work": [
+    {
+      "company": "Moltiply Group",
+      "position": "Developer Specialist",
+      "location": "Remote · Milan, IT",
+      "startDate": "2025-02",
+      "endDate": "Present",
+      "highlights": [
+        "Developing backend solutions for large-scale loan and document management platforms, with some of the biggest Italian banks among the clients.",
+        "Working primarily with .NET Framework, SQL Server, and Azure DevOps.",
+        "Leading the team's onboarding onto a new agentic AI coding framework, driving adoption of AI-assisted development practices.",
+        "Operating with high autonomy within a ~10-person team, collaborating closely with external client teams."
+      ],
+      "skills": ["C#", ".NET", "SQL Server", "Azure DevOps"]
+    },
     {
       "company": "Alten",
       "position": "Consultant as Full-Stack Developer",
       "location": "Remote · Milan, IT",
       "startDate": "2023-02",
-      "endDate": "Present",
+      "endDate": "2024-12",
       "highlights": [
-        "Currently working as lead Microsoft developer.",
+        "Worked as lead Microsoft developer.",
         "Worked on two Finance clients on technologies ranging from VB6 to .NET 8.",
         "Built web apps using Angular in conjunction with .NET APIs.",
         "Tutored new team members, including colleagues from abroad, facilitating communication between Italian and foreign staff.",
-        "Leading the team on both management coordination with the client and key technical decisions."
+        "Led the team on both management coordination with the client and key technical decisions."
       ],
       "skills": ["C#", ".NET", "Angular", "Azure", "VB6"]
     },
