@@ -1,0 +1,59 @@
+{
+  "_comment": "Resume data, JSON Resume schema (https://jsonresume.org/schema). Replace placeholder values when the LaTeX source is available.",
+  "basics": {
+    "name": "Alberto Bandini",
+    "label": "Software Developer",
+    "email": "alberto.bandini.work@posteo.eu",
+    "location": {
+      "city": "TODO: replace with .tex content",
+      "countryCode": ""
+    },
+    "summary": "TODO: replace with .tex content. A short paragraph summarising professional background and focus."
+  },
+  "work": [
+    {
+      "company": "TODO: Company name",
+      "position": "TODO: Role",
+      "location": "TODO: Location",
+      "startDate": "YYYY-MM",
+      "endDate": "Present",
+      "summary": "TODO: replace with .tex content.",
+      "highlights": [
+        "TODO: bullet 1",
+        "TODO: bullet 2"
+      ],
+      "skills": ["TODO", "Skill", "Tags"]
+    }
+  ],
+  "education": [
+    {
+      "institution": "TODO: University",
+      "area": "TODO: Field of study",
+      "studyType": "TODO: Degree",
+      "startDate": "YYYY",
+      "endDate": "YYYY",
+      "summary": "TODO: replace with .tex content.",
+      "highlights": []
+    }
+  ],
+  "skills": [
+    {
+      "category": "Languages",
+      "keywords": ["TODO", "from", ".tex"]
+    },
+    {
+      "category": "Frameworks",
+      "keywords": ["TODO", "from", ".tex"]
+    },
+    {
+      "category": "Tools",
+      "keywords": ["TODO", "from", ".tex"]
+    }
+  ],
+  "languages": [
+    { "language": "Italian", "fluency": "Native" },
+    { "language": "English", "fluency": "TODO" }
+  ],
+  "certificates": [],
+  "awards": []
+}

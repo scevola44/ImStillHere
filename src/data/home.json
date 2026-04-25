@@ -1,0 +1,48 @@
+{
+  "name": "Alberto Bandini",
+  "photoUrl": "favicon.svg",
+  "intro": "I'm a software developer focused on building clean, reliable, high-impact products. TODO: replace with a more personal introduction once the .tex resume is provided.",
+  "introHtml": "I'm a <span class='text-white font-bold'>software developer</span> focused on building clean, reliable, high-impact products. <span class='text-white font-bold'>TODO:</span> replace with a more personal introduction once the .tex resume is provided.",
+  "webpageTitle": "Alberto Bandini — Developer",
+  "resumeUrl": "Alberto-Bandini-Resume.pdf",
+
+  "_comment": "Add your social links below. Leave the 'url' empty to hide the icon. Set 'showInContact' to true or false to control if it appears in the Contact section.",
+  "socials": [
+    {
+      "name": "GitHub",
+      "url": "https://github.com/Scevola44",
+      "icon": "mdi:github",
+      "showInContact": true
+    },
+    {
+      "name": "LinkedIn",
+      "url": "https://www.linkedin.com/in/albertobandini",
+      "icon": "mdi:linkedin",
+      "showInContact": true
+    },
+    {
+      "name": "Email",
+      "url": "mailto:alberto.bandini.work@posteo.eu",
+      "icon": "mdi:email",
+      "showInContact": true
+    },
+    {
+      "name": "Leetcode",
+      "url": "",
+      "icon": "devicon-plain:leetcode",
+      "showInContact": false
+    },
+    {
+      "name": "Twitter",
+      "url": "",
+      "icon": "mdi:twitter",
+      "showInContact": false
+    },
+    {
+      "name": "Whatsapp",
+      "url": "",
+      "icon": "mdi:whatsapp",
+      "showInContact": false
+    }
+  ]
+}

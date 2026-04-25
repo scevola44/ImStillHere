@@ -1,0 +1,107 @@
+---
+import { Icon } from 'astro-icon/components';
+
+interface GhProject {
+  name: string;
+  description: string;
+  htmlUrl: string;
+  homepage?: string;
+  language: string;
+  stars: number;
+  topics: string[];
+  ogImageUrl: string;
+}
+
+const { project } = Astro.props as { project: GhProject };
+const topicsToShow = (project.topics ?? []).slice(0, 4);
+---
+
+<a
+  href={project.htmlUrl}
+  target="_blank"
+  rel="noopener noreferrer"
+  class="project-card group relative block bg-accent/5 border border-accent/10 rounded-2xl overflow-hidden hover:border-accent/40 transition-all duration-500"
+>
+  <div class="aspect-video overflow-hidden relative bg-background/50">
+    <div class="absolute inset-0 bg-accent/10 group-hover:bg-transparent transition-colors z-10 pointer-events-none"></div>
+
+    <img
+      src={project.ogImageUrl}
+      alt={`${project.name} preview`}
+      loading="lazy"
+      onerror="this.onerror=null;this.classList.add('hidden');this.parentElement?.classList.add('og-fallback');"
+      class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
+    />
+
+    {project.language && (
+      <div class="absolute top-3 left-3 z-20 px-2 py-1 text-[10px] uppercase tracking-widest bg-background/80 backdrop-blur-md rounded-md border border-accent/20 text-maintext">
+        {project.language}
+      </div>
+    )}
+
+    <div class="absolute top-3 right-3 z-20 flex items-center gap-1 px-2 py-1 bg-background/80 backdrop-blur-md rounded-md border border-accent/20 text-maintext text-xs">
+      <Icon name="mdi:star" class="w-3.5 h-3.5 text-accent" />
+      {project.stars}
+    </div>
+  </div>
+
+  <div class="p-6 space-y-4">
+    <div class="flex justify-between items-start gap-3">
+      <h3 class="text-xl font-heading font-bold text-maintext break-words">{project.name}</h3>
+      <Icon name="mdi:open-in-new" class="w-5 h-5 text-accent/75 group-hover:text-accent transition-colors shrink-0 mt-1" />
+    </div>
+
+    {project.description && (
+      <p class="text-subtext text-sm font-body line-clamp-3">{project.description}</p>
+    )}
+
+    {topicsToShow.length > 0 && (
+      <div class="flex flex-wrap gap-2 pt-2">
+        {topicsToShow.map((t) => (
+          <span class="rounded-md text-[10px] px-2 md:px-3 py-1 bg-accent/5 border border-accent/10 text-accent/80 group-hover:border-accent/40 group-hover:text-accent">
+            {t}
+          </span>
+        ))}
+      </div>
+    )}
+
+    {project.homepage && (
+      <div class="pt-2">
+        <span
+          class="inline-flex items-center gap-1.5 text-xs text-accent/80 group-hover:text-accent transition-colors"
+        >
+          <Icon name="mdi:link-variant" class="w-3.5 h-3.5" />
+          {project.homepage.replace(/^https?:\/\//, '')}
+        </span>
+      </div>
+    )}
+  </div>
+</a>
+
+<style is:global>
+  .project-card {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(40px);
+    transition:
+      opacity 0.8s ease-out,
+      transform 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+      visibility 0.8s;
+    will-change: transform, opacity;
+  }
+  .project-card.reveal {
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: translateY(0) !important;
+  }
+  /* Fallback gradient when the GitHub OG image fails to load. */
+  .og-fallback::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg,
+      color-mix(in srgb, var(--color-accent) 25%, transparent),
+      color-mix(in srgb, var(--color-accent) 5%, transparent));
+    z-index: 0;
+  }
+</style>

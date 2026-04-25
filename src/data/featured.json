@@ -1,0 +1,5 @@
+{
+  "_comment": "Curate the GitHub portfolio. 'pinned' = repos to show first, in order. 'hidden' = repos to hide (e.g. dotfiles, forks already filtered separately).",
+  "pinned": [],
+  "hidden": []
+}

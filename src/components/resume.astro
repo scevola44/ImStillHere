@@ -1,0 +1,273 @@
+---
+import { Icon } from 'astro-icon/components';
+import resumeData from '../data/resume.json';
+import homeData from '../data/home.json';
+
+interface WorkItem {
+  company: string;
+  position: string;
+  location?: string;
+  startDate: string;
+  endDate: string;
+  summary?: string;
+  highlights?: string[];
+  skills?: string[];
+}
+
+interface EducationItem {
+  institution: string;
+  area?: string;
+  studyType?: string;
+  startDate: string;
+  endDate: string;
+  summary?: string;
+  highlights?: string[];
+}
+
+interface SkillGroup {
+  category: string;
+  keywords: string[];
+}
+
+interface Language {
+  language: string;
+  fluency: string;
+}
+
+interface Certificate {
+  name: string;
+  issuer?: string;
+  date?: string;
+  url?: string;
+}
+
+const work = (resumeData.work ?? []) as WorkItem[];
+const education = (resumeData.education ?? []) as EducationItem[];
+const skills = (resumeData.skills ?? []) as SkillGroup[];
+const languages = (resumeData.languages ?? []) as Language[];
+const certificates = (resumeData.certificates ?? []) as Certificate[];
+
+function formatPeriod(start: string, end: string) {
+  const fmt = (s: string) => {
+    if (!s) return '';
+    if (s.toLowerCase() === 'present') return 'Present';
+    const [y, m] = s.split('-');
+    if (!m) return y;
+    const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    const idx = parseInt(m, 10) - 1;
+    return months[idx] ? `${months[idx]} ${y}` : y;
+  };
+  return `${fmt(start)} — ${fmt(end)}`;
+}
+
+const resumeUrl = (homeData as { resumeUrl?: string }).resumeUrl ?? '';
+---
+
+<section id="resume" class="section-container max-w-6xl mx-auto overflow-hidden">
+  <div class="container mx-auto">
+    <div class="resume-header flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+      <div>
+        <h2 class="text-3xl md:text-4xl font-heading font-bold text-maintext mb-2 flex items-center gap-4">
+          <span class="text-accent">/</span> Resume
+        </h2>
+        <p class="text-subtext font-body text-sm max-w-md">
+          Experience, education, and skills. Download the full PDF for the long version.
+        </p>
+      </div>
+
+      {resumeUrl && (
+        <a
+          href={resumeUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-2 px-5 py-2 rounded-full border border-accent/40 bg-accent/10 text-maintext font-body text-sm hover:bg-accent/20 transition-colors"
+        >
+          <Icon name="mdi:download" class="w-4 h-4" />
+          Download PDF
+        </a>
+      )}
+    </div>
+
+    {/* Experience */}
+    {work.length > 0 && (
+      <div class="mb-14">
+        <h3 class="text-maintext font-body text-[11px] uppercase tracking-[0.4em] ml-1 mb-6">Experience</h3>
+        <div class="space-y-4">
+          {work.map((item) => (
+            <div class="resume-card bg-accent/5 border border-accent/10 p-4 md:p-6 rounded-2xl hover:border-accent/40 transition-all group">
+              <div class="flex flex-col md:flex-row md:items-baseline md:justify-between gap-1 md:gap-4">
+                <div>
+                  <h4 class="text-xl font-heading font-bold text-maintext">{item.position}</h4>
+                  <p class="text-accent text-sm">{item.company}{item.location ? ` · ${item.location}` : ''}</p>
+                </div>
+                <span class="font-mono text-xs tracking-widest uppercase text-accent/75 whitespace-nowrap">
+                  {formatPeriod(item.startDate, item.endDate)}
+                </span>
+              </div>
+
+              {item.summary && (
+                <p class="text-subtext font-body text-sm leading-relaxed mt-3">{item.summary}</p>
+              )}
+
+              {item.highlights && item.highlights.length > 0 && (
+                <ul class="list-disc list-outside ml-5 mt-3 space-y-1 text-subtext font-body text-sm">
+                  {item.highlights.map((h) => <li>{h}</li>)}
+                </ul>
+              )}
+
+              {item.skills && item.skills.length > 0 && (
+                <div class="flex flex-wrap gap-2 mt-4">
+                  {item.skills.map((s) => (
+                    <span class="rounded-md text-[10px] px-2 md:px-3 py-1 bg-accent/5 border border-accent/10 text-accent/80 group-hover:border-accent/40 group-hover:text-accent">
+                      {s}
+                    </span>
+                  ))}
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+    )}
+
+    {/* Education */}
+    {education.length > 0 && (
+      <div class="mb-14">
+        <h3 class="text-maintext font-body text-[11px] uppercase tracking-[0.4em] ml-1 mb-6">Education</h3>
+        <div class="space-y-4">
+          {education.map((item) => (
+            <div class="resume-card bg-accent/5 border border-accent/10 p-4 md:p-6 rounded-2xl hover:border-accent/40 transition-all">
+              <div class="flex flex-col md:flex-row md:items-baseline md:justify-between gap-1 md:gap-4">
+                <div>
+                  <h4 class="text-xl font-heading font-bold text-maintext">
+                    {item.studyType}{item.area ? ` · ${item.area}` : ''}
+                  </h4>
+                  <p class="text-accent text-sm">{item.institution}</p>
+                </div>
+                <span class="font-mono text-xs tracking-widest uppercase text-accent/75 whitespace-nowrap">
+                  {formatPeriod(item.startDate, item.endDate)}
+                </span>
+              </div>
+              {item.summary && (
+                <p class="text-subtext font-body text-sm leading-relaxed mt-3">{item.summary}</p>
+              )}
+              {item.highlights && item.highlights.length > 0 && (
+                <ul class="list-disc list-outside ml-5 mt-3 space-y-1 text-subtext font-body text-sm">
+                  {item.highlights.map((h) => <li>{h}</li>)}
+                </ul>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+    )}
+
+    {/* Skills */}
+    {skills.length > 0 && (
+      <div class="mb-14">
+        <h3 class="text-maintext font-body text-[11px] uppercase tracking-[0.4em] ml-1 mb-6">Skills</h3>
+        <div class="space-y-4">
+          {skills.map((group) => (
+            <div class="resume-card bg-accent/5 border border-accent/10 p-4 md:p-5 rounded-2xl">
+              <div class="flex flex-col md:flex-row gap-3 md:gap-6">
+                <span class="text-accent text-sm font-body uppercase tracking-wider md:w-40 shrink-0">
+                  {group.category}
+                </span>
+                <div class="flex flex-wrap gap-2">
+                  {group.keywords.map((k) => (
+                    <span class="rounded-md text-xs px-3 py-1 bg-accent/5 border border-accent/10 text-maintext/90">
+                      {k}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    )}
+
+    {/* Languages + Certificates side-by-side */}
+    {(languages.length > 0 || certificates.length > 0) && (
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {languages.length > 0 && (
+          <div>
+            <h3 class="text-maintext font-body text-[11px] uppercase tracking-[0.4em] ml-1 mb-4">Languages</h3>
+            <div class="resume-card bg-accent/5 border border-accent/10 p-4 md:p-5 rounded-2xl space-y-2">
+              {languages.map((l) => (
+                <div class="flex justify-between text-sm">
+                  <span class="text-maintext/90">{l.language}</span>
+                  <span class="text-accent/80">{l.fluency}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {certificates.length > 0 && (
+          <div>
+            <h3 class="text-maintext font-body text-[11px] uppercase tracking-[0.4em] ml-1 mb-4">Certificates</h3>
+            <div class="resume-card bg-accent/5 border border-accent/10 p-4 md:p-5 rounded-2xl space-y-3">
+              {certificates.map((c) => (
+                <div class="text-sm">
+                  {c.url ? (
+                    <a href={c.url} target="_blank" rel="noopener noreferrer" class="text-maintext hover:text-accent transition-colors">{c.name}</a>
+                  ) : (
+                    <span class="text-maintext">{c.name}</span>
+                  )}
+                  {(c.issuer || c.date) && (
+                    <span class="text-subtext block text-xs mt-0.5">
+                      {c.issuer}{c.issuer && c.date ? ' · ' : ''}{c.date}
+                    </span>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+    )}
+  </div>
+</section>
+
+<style>
+  .resume-header,
+  .resume-card {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .resume-header.reveal,
+  .resume-card.reveal {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+  }
+</style>
+
+<script>
+  function revealResume() {
+    const header = document.querySelector('.resume-header');
+    const cards = document.querySelectorAll('.resume-card');
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const target = entry.target as HTMLElement;
+          if (target.classList.contains('resume-header')) {
+            target.classList.add('reveal');
+          } else {
+            const index = Array.from(cards).indexOf(target);
+            setTimeout(() => target.classList.add('reveal'), (index % 4) * 100);
+          }
+          observer.unobserve(target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -10px 0px' });
+
+    if (header) observer.observe(header);
+    cards.forEach((c) => observer.observe(c));
+  }
+
+  revealResume();
+  document.addEventListener('astro:after-swap', revealResume);
+</script>

@@ -1,0 +1,37 @@
+{
+  "_comment": "Placeholder tech stack with proficiency 1=Beginner, 2=Proficient, 3=Expert. Replace with real values once the .tex resume is provided. Icons come from https://icon-sets.iconify.design (use the 'skill-icons' set when possible).",
+  "categories": [
+    {
+      "title": "Languages",
+      "skills": [
+        { "name": "TypeScript", "level": 2, "icon": "skill-icons:typescript" },
+        { "name": "Python", "level": 2, "icon": "skill-icons:python-dark" },
+        { "name": "JavaScript", "level": 2, "icon": "skill-icons:javascript" }
+      ]
+    },
+    {
+      "title": "Frontend",
+      "skills": [
+        { "name": "Astro", "level": 2, "icon": "skill-icons:astro" },
+        { "name": "Tailwind CSS", "level": 2, "icon": "skill-icons:tailwindcss-dark" },
+        { "name": "HTML", "level": 2, "icon": "skill-icons:html" },
+        { "name": "CSS", "level": 2, "icon": "skill-icons:css" }
+      ]
+    },
+    {
+      "title": "Backend",
+      "skills": [
+        { "name": "Node.js", "level": 2, "icon": "skill-icons:nodejs-dark" },
+        { "name": "PostgreSQL", "level": 2, "icon": "skill-icons:postgresql-dark" }
+      ]
+    },
+    {
+      "title": "Tooling",
+      "skills": [
+        { "name": "Git", "level": 2, "icon": "skill-icons:git" },
+        { "name": "Docker", "level": 1, "icon": "skill-icons:docker" },
+        { "name": "Linux", "level": 2, "icon": "skill-icons:linux-dark" }
+      ]
+    }
+  ]
+}
