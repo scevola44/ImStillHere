@@ -17,11 +17,12 @@
       "startDate": "2025-02",
       "endDate": "Present",
       "highlights": [
-        "Working as Developer Specialist with the Microsoft technological stack.",
-        "Developing large-scale, complex financial applications for major banking clients.",
-        "Operating in a remote capacity within an international finance-focused environment."
+        "Developing backend solutions for large-scale loan and document management platforms, with some of the biggest Italian banks among the clients.",
+        "Working primarily with .NET Framework, SQL Server, and Azure DevOps.",
+        "Leading the team's onboarding onto a new agentic AI coding framework, driving adoption of AI-assisted development practices.",
+        "Operating with high autonomy within a ~10-person team, collaborating closely with external client teams."
       ],
-      "skills": ["C#", ".NET", "Azure", "Microsoft Stack"]
+      "skills": ["C#", ".NET", "SQL Server", "Azure DevOps"]
     },
     {
       "company": "Alten",
