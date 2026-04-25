@@ -1,10 +1,10 @@
 {
   "name": "Alberto Bandini",
   "photoUrl": "favicon.svg",
-  "intro": "I'm a software developer focused on building clean, reliable, high-impact products. TODO: replace with a more personal introduction once the .tex resume is provided.",
-  "introHtml": "I'm a <span class='text-white font-bold'>software developer</span> focused on building clean, reliable, high-impact products. <span class='text-white font-bold'>TODO:</span> replace with a more personal introduction once the .tex resume is provided.",
+  "intro": "Full-Stack Developer with 6+ years of experience in finance and e-commerce. I specialise in .NET and Angular, enjoy modernising legacy systems, and currently lead a team at Alten.",
+  "introHtml": "Full-Stack Developer with <span class='text-white font-bold'>6+ years</span> of experience in finance and e-commerce. I specialise in <span class='text-white font-bold'>.NET</span> and <span class='text-white font-bold'>Angular</span>, enjoy modernising legacy systems, and currently lead a team at Alten.",
   "webpageTitle": "Alberto Bandini — Developer",
-  "resumeUrl": "Alberto-Bandini-Resume.pdf",
+  "resumeUrl": "Alberto_Bandini-Resume.pdf",
 
   "_comment": "Add your social links below. Leave the 'url' empty to hide the icon. Set 'showInContact' to true or false to control if it appears in the Contact section.",
   "socials": [

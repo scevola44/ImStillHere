@@ -1,58 +1,89 @@
 {
-  "_comment": "Resume data, JSON Resume schema (https://jsonresume.org/schema). Replace placeholder values when the LaTeX source is available.",
   "basics": {
     "name": "Alberto Bandini",
     "label": "Software Developer",
     "email": "alberto.bandini.work@posteo.eu",
     "location": {
-      "city": "TODO: replace with .tex content",
-      "countryCode": ""
+      "city": "Milan",
+      "countryCode": "IT"
     },
-    "summary": "TODO: replace with .tex content. A short paragraph summarising professional background and focus."
+    "summary": "Full-Stack Developer with 6+ years of experience across finance and e-commerce. Specialised in .NET and Angular, with a track record of modernising legacy systems and leading cross-functional teams. Currently acting as team lead and lead Microsoft developer at Alten."
   },
   "work": [
     {
-      "company": "TODO: Company name",
-      "position": "TODO: Role",
-      "location": "TODO: Location",
-      "startDate": "YYYY-MM",
+      "company": "Alten",
+      "position": "Consultant as Full-Stack Developer",
+      "location": "Remote · Milan, IT",
+      "startDate": "2023-02",
       "endDate": "Present",
-      "summary": "TODO: replace with .tex content.",
       "highlights": [
-        "TODO: bullet 1",
-        "TODO: bullet 2"
+        "Currently working as lead Microsoft developer.",
+        "Worked on two Finance clients on technologies ranging from VB6 to .NET 8.",
+        "Built web apps using Angular in conjunction with .NET APIs.",
+        "Tutored new team members, including colleagues from abroad, facilitating communication between Italian and foreign staff.",
+        "Leading the team on both management coordination with the client and key technical decisions."
       ],
-      "skills": ["TODO", "Skill", "Tags"]
+      "skills": ["C#", ".NET", "Angular", "Azure", "VB6"]
+    },
+    {
+      "company": "7Pixel s.r.l.",
+      "position": "Full-Stack Developer",
+      "location": "Giussago, IT",
+      "startDate": "2020",
+      "endDate": "2023",
+      "highlights": [
+        "Developed several CMS solutions for e-commerce backend management.",
+        "Assisted in major technological and business transitions.",
+        "Tutored new resources joining the company."
+      ],
+      "skills": ["JavaScript", "SQL", "CMS", "E-commerce"]
+    },
+    {
+      "company": "Mentes",
+      "position": "Consultant for Cedacri",
+      "location": "Parma, IT",
+      "startDate": "2018",
+      "endDate": "2019",
+      "highlights": [
+        "Maintained and operated an anti-fraud platform, working in close contact with client banks' representatives.",
+        "Assisted management with the onboarding of a major international bank."
+      ],
+      "skills": ["Anti-fraud", "Banking", "Operations"]
     }
   ],
   "education": [
     {
-      "institution": "TODO: University",
-      "area": "TODO: Field of study",
-      "studyType": "TODO: Degree",
-      "startDate": "YYYY",
-      "endDate": "YYYY",
-      "summary": "TODO: replace with .tex content.",
+      "institution": "University of Parma",
+      "area": "Computer Science",
+      "studyType": "BA",
+      "startDate": "2018",
+      "endDate": "2018",
       "highlights": []
     }
   ],
   "skills": [
     {
-      "category": "Languages",
-      "keywords": ["TODO", "from", ".tex"]
-    },
-    {
-      "category": "Frameworks",
-      "keywords": ["TODO", "from", ".tex"]
+      "category": "Languages & Frameworks",
+      "keywords": ["C#", ".NET", "Python", "SQL", "JavaScript", "Angular", "React", "Swift"]
     },
     {
       "category": "Tools",
-      "keywords": ["TODO", "from", ".tex"]
+      "keywords": ["Git", "SVN", "Azure", "Office", "Linux", "Docker"]
+    },
+    {
+      "category": "Technical Skills",
+      "keywords": ["System Administration", "Networking", "Container Management"]
+    },
+    {
+      "category": "Methodologies",
+      "keywords": ["Agile", "SCRUM", "TDD", "DDD", "CI/CD"]
     }
   ],
   "languages": [
     { "language": "Italian", "fluency": "Native" },
-    { "language": "English", "fluency": "TODO" }
+    { "language": "English", "fluency": "Professional" },
+    { "language": "French", "fluency": "Elementary" },
+    { "language": "Russian", "fluency": "Rudimentary" }
   ],
   "certificates": [],
   "awards": []
