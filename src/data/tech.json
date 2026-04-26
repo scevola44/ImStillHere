@@ -34,7 +34,7 @@
         { "name": "Git", "level": 2, "icon": "skill-icons:git" },
         { "name": "Docker", "level": 3, "icon": "skill-icons:docker" },
         { "name": "Linux", "level": 3, "icon": "skill-icons:linux-dark" },
-        { "name": "Proxmox", "level": 3, "icon": "devicon:proxmox-wordmark" }
+        { "name": "Proxmox", "level": 3, "icon": "devicon:proxmox" }
       ]
     }
   ]
