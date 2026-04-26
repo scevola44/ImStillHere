@@ -4,7 +4,8 @@
     {
       "title": "Languages",
       "skills": [
-        { "name": "TypeScript", "level": 2, "icon": "skill-icons:typescript" },
+        { "name": "C#", "level": 3, "icon": "skill-icons:cs" },
+        { "name": "TypeScript", "level": 1, "icon": "skill-icons:typescript" },
         { "name": "Python", "level": 2, "icon": "skill-icons:python-dark" },
         { "name": "JavaScript", "level": 2, "icon": "skill-icons:javascript" }
       ]
@@ -12,25 +13,28 @@
     {
       "title": "Frontend",
       "skills": [
-        { "name": "Astro", "level": 2, "icon": "skill-icons:astro" },
-        { "name": "Tailwind CSS", "level": 2, "icon": "skill-icons:tailwindcss-dark" },
+        { "name": "Astro", "level": 1, "icon": "skill-icons:astro" },
         { "name": "HTML", "level": 2, "icon": "skill-icons:html" },
-        { "name": "CSS", "level": 2, "icon": "skill-icons:css" }
+        { "name": "CSS", "level": 2, "icon": "skill-icons:css" },
+        { "name": "React", "level": 1, "icon": "skill-icons:react-dark" }
       ]
     },
     {
       "title": "Backend",
       "skills": [
-        { "name": "Node.js", "level": 2, "icon": "skill-icons:nodejs-dark" },
-        { "name": "PostgreSQL", "level": 2, "icon": "skill-icons:postgresql-dark" }
+        { "name": ".NET", "level": 3, "icon": "skill-icons:dotnet" },
+        { "name": "Node.js", "level": 1, "icon": "skill-icons:nodejs-dark" },
+        { "name": "PostgreSQL", "level": 2, "icon": "skill-icons:postgresql-dark" },
+        { "name": "SQL Server", "level": 3, "icon": "devicon-plain:microsoftsqlserver-wordmark" }
       ]
     },
     {
       "title": "Tooling",
       "skills": [
         { "name": "Git", "level": 2, "icon": "skill-icons:git" },
-        { "name": "Docker", "level": 1, "icon": "skill-icons:docker" },
-        { "name": "Linux", "level": 2, "icon": "skill-icons:linux-dark" }
+        { "name": "Docker", "level": 3, "icon": "skill-icons:docker" },
+        { "name": "Linux", "level": 3, "icon": "skill-icons:linux-dark" },
+        { "name": "Proxmox", "level": 3, "icon": "devicon:proxmox-wordmark" }
       ]
     }
   ]
