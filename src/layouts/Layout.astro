@@ -4,13 +4,18 @@ import { SITE_CONFIG } from '../config.ts';
 
 interface Props {
   title: string;
+  description?: string;
+  image?: string;
 }
 
-const { title } = Astro.props;
+const { title, description = 'Full-Stack Developer with 7+ years of experience in finance and e-commerce.', image } = Astro.props;
 
 const baseTheme = SITE_CONFIG.baseTheme;
 const defaultTheme = `${baseTheme}-dark`;
-const faviconHref = `${import.meta.env.BASE_URL.replace(/\/$/, '')}/favicon.ico`;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const faviconHref = `${base}/favicon.ico`;
+const canonicalUrl = Astro.site ? new URL(Astro.url.pathname, Astro.site).toString() : '';
+const ogImage = image ?? (Astro.site ? new URL(`${base}/placeholder.jpeg`, Astro.site).toString() : '');
 ---
 
 <!doctype html>
@@ -19,7 +24,22 @@ const faviconHref = `${import.meta.env.BASE_URL.replace(/\/$/, '')}/favicon.ico`
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/png" href={faviconHref} />
+    {canonicalUrl && <link rel="canonical" href={canonicalUrl} />}
     <title>{title}</title>
+    <meta name="description" content={description} />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    {canonicalUrl && <meta property="og:url" content={canonicalUrl} />}
+    {ogImage && <meta property="og:image" content={ogImage} />}
+
+    <!-- Twitter / X -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    {ogImage && <meta name="twitter:image" content={ogImage} />}
 
     <!-- THEME TOGGLE SCRIPT -->
     <script is:inline define:vars={{ baseTheme, defaultTheme }}>
