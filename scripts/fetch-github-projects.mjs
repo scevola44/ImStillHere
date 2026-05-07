@@ -34,13 +34,38 @@ async function readFeatured() {
   }
 }
 
-function ogImageUrl(repoName) {
-  // GitHub auto-generates social preview images at this URL.
-  // The first path segment is a cache-busting hash; any non-empty value works.
+function ogImageUrlFallback(repoName) {
   return `https://opengraph.githubassets.com/1/${GITHUB_USER}/${repoName}`;
 }
 
-function shapeRepo(repo) {
+// Uses the GraphQL API to get the real openGraphImageUrl for each repo.
+// This is necessary because custom social preview images are served from
+// repository-images.githubusercontent.com and are not reachable via the
+// opengraph.githubassets.com URL pattern used as the fallback above.
+async function fetchOgImageUrls(repoNames, headers) {
+  if (!process.env.GITHUB_TOKEN) return {};
+
+  const aliases = repoNames
+    .map((name, i) => `r${i}: repository(owner: "${GITHUB_USER}", name: ${JSON.stringify(name)}) { openGraphImageUrl }`)
+    .join('\n');
+
+  const res = await fetch('https://api.github.com/graphql', {
+    method: 'POST',
+    headers: { ...headers, 'Content-Type': 'application/json' },
+    body: JSON.stringify({ query: `{ ${aliases} }` }),
+  });
+
+  if (!res.ok) return {};
+
+  const { data } = await res.json();
+  if (!data) return {};
+
+  return Object.fromEntries(
+    repoNames.map((name, i) => [name, data[`r${i}`]?.openGraphImageUrl])
+  );
+}
+
+function shapeRepo(repo, ogImageUrls) {
   return {
     name: repo.name,
     description: repo.description || '',
@@ -52,7 +77,7 @@ function shapeRepo(repo) {
     topics: Array.isArray(repo.topics) ? repo.topics : [],
     fork: !!repo.fork,
     archived: !!repo.archived,
-    ogImageUrl: ogImageUrl(repo.name),
+    ogImageUrl: ogImageUrls[repo.name] || ogImageUrlFallback(repo.name),
     updatedAt: repo.updated_at,
   };
 }
@@ -71,7 +96,20 @@ async function fetchRepos() {
   if (!Array.isArray(repos)) {
     throw new Error('Unexpected GitHub API response shape');
   }
-  return repos.map(shapeRepo);
+
+  const repoNames = repos.map(r => r.name);
+  let ogImageUrls = {};
+  try {
+    ogImageUrls = await fetchOgImageUrls(repoNames, headers);
+    const withCustom = Object.values(ogImageUrls).filter(Boolean).length;
+    if (withCustom > 0) {
+      console.log(`[fetch-github-projects] Resolved ${withCustom} OG image URLs via GraphQL.`);
+    }
+  } catch (err) {
+    console.warn(`[fetch-github-projects] GraphQL OG image fetch failed, using fallback URLs: ${err.message}`);
+  }
+
+  return repos.map(r => shapeRepo(r, ogImageUrls));
 }
 
 function sortRepos(repos, pinned) {
