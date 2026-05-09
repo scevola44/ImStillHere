@@ -2,8 +2,23 @@
 ---
 <button id="theme-toggle" aria-label="Toggle Theme">
   <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
-  
+
   <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+
+  <svg class="system-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Left half: sun -->
+    <circle cx="12" cy="12" r="5"></circle>
+    <line x1="12" y1="1" x2="12" y2="3"></line>
+    <line x1="12" y1="21" x2="12" y2="23"></line>
+    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+    <line x1="1" y1="12" x2="3" y2="12"></line>
+    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+    <!-- Right half: moon curve -->
+    <path d="M17 12c0 2.76-2.24 5-5 5" fill="none"></path>
+    <path d="M18.36 5.64L19.78 4.22" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+    <path d="M21 12h2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+    <path d="M18.36 18.36L19.78 19.78" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+  </svg>
 </button>
 
 <style>
@@ -28,25 +43,75 @@
   :global([data-theme$="-dark"]) .sun-icon {
     display: none;
   }
-  
+
   :global([data-theme$="-light"]) .moon-icon {
+    display: none;
+  }
+
+  :global([data-theme$="-light"]) .system-icon {
+    display: none;
+  }
+
+  :global([data-theme$="-dark"]) .system-icon {
+    display: none;
+  }
+
+  :global([data-theme$="-system"]) .sun-icon {
+    display: none;
+  }
+
+  :global([data-theme$="-system"]) .moon-icon {
     display: none;
   }
 </style>
 
 <script>
+  function getThemeMode(theme: string): 'dark' | 'light' | 'system' {
+    if (theme.endsWith('-dark')) return 'dark';
+    if (theme.endsWith('-light')) return 'light';
+    if (theme.endsWith('-system')) return 'system';
+    return 'dark';
+  }
+
+  function getSystemPreference() {
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  }
+
+  function getActualTheme(storedTheme: string) {
+    if (storedTheme.endsWith('-system')) {
+      return storedTheme.replace('-system', `-${getSystemPreference()}`);
+    }
+    return storedTheme;
+  }
+
+  function applyTheme(theme: string) {
+    const actualTheme = getActualTheme(theme);
+    document.documentElement.setAttribute('data-theme', actualTheme);
+    localStorage.setItem('theme', theme);
+
+    // Force a style recalculation by accessing computed styles
+    // This fixes the mobile repaint issue
+    void document.documentElement.offsetHeight;
+  }
+
   const themeToggle = document.getElementById('theme-toggle');
 
   themeToggle?.addEventListener('click', () => {
-    const currentTheme = document.documentElement.getAttribute('data-theme') || 'default-dark';
-    
-    const isDark = currentTheme.endsWith('-dark');
-    
-    const newTheme = isDark 
-    ? currentTheme.replace('-dark', '-light') 
-    : currentTheme.replace('-light', '-dark');
+    const storedTheme = localStorage.getItem('theme') || 'default-dark';
+    const baseTheme = storedTheme.split('-').slice(0, -1).join('-') || 'default';
+    const currentMode = getThemeMode(storedTheme);
 
-    document.documentElement.setAttribute('data-theme', newTheme);
-    localStorage.setItem('theme', newTheme);
+    // Cycle through: light -> dark -> system -> light
+    let newMode: 'light' | 'dark' | 'system';
+    if (currentMode === 'light') {
+      newMode = 'dark';
+    } else if (currentMode === 'dark') {
+      newMode = 'system';
+    } else {
+      newMode = 'light';
+    }
+
+    const newTheme = `${baseTheme}-${newMode}`;
+    applyTheme(newTheme);
   });
 </script>
