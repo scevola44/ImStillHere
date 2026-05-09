@@ -69,14 +69,41 @@ const siteRoot = Astro.site ? `${Astro.site.origin}${baseUrl}` : `https://scevol
 
     <!-- THEME TOGGLE SCRIPT -->
     <script is:inline define:vars={{ baseTheme, defaultTheme }}>
+      function getSystemTheme() {
+        return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      }
+
+      function getActualTheme(storedTheme) {
+        if (storedTheme.endsWith('-system')) {
+          return storedTheme.replace('-system', `-${getSystemTheme()}`);
+        }
+        return storedTheme;
+      }
+
+      function applyTheme(theme) {
+        const actualTheme = getActualTheme(theme);
+        document.documentElement.setAttribute('data-theme', actualTheme);
+        // Force a style recalculation
+        void document.documentElement.offsetHeight;
+      }
+
       const savedTheme = localStorage.getItem('theme');
 
       if (savedTheme && savedTheme.startsWith(baseTheme)) {
-        document.documentElement.setAttribute('data-theme', savedTheme);
+        applyTheme(savedTheme);
       } else {
-        document.documentElement.setAttribute('data-theme', defaultTheme);
+        applyTheme(defaultTheme);
         localStorage.setItem('theme', defaultTheme);
       }
+
+      // Listen for system theme changes when in system mode
+      const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+      mediaQuery.addEventListener('change', () => {
+        const currentTheme = localStorage.getItem('theme');
+        if (currentTheme && currentTheme.endsWith('-system')) {
+          applyTheme(currentTheme);
+        }
+      });
     </script>
 
   </head>
