@@ -120,15 +120,14 @@
   body {
     @apply font-body antialiased text-maintext;
     background: linear-gradient(
-      135deg,    
+      135deg,
       color-mix(in srgb, var(--color-background), black 16%) 0%,
       var(--color-background) 50%,
       color-mix(in srgb, var(--color-background), white 16%) 100%
     );
-    background-attachment: fixed;
+    background-attachment: scroll;
     min-height: 100vh;
-    /*Transition for theme switching*/
-    transition: background-color 0.5s ease-in-out, color 0.5s ease-in-out;
+    transition: color 0.5s ease-in-out;
   }
 }
 
