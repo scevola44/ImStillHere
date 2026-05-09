@@ -1,24 +1,14 @@
 ---
+import { Icon } from 'astro-icon/components';
 ---
 <button id="theme-toggle" aria-label="Toggle Theme">
-  <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+  <Icon class="sun-icon"  name="fa6-solid:sun"  width="22" height="22" />
+  <Icon class="moon-icon" name="fa6-solid:moon" width="22" height="22" />
 
-  <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
-
-  <svg class="system-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-    <!-- Left half: sun -->
-    <circle cx="12" cy="12" r="5"></circle>
-    <line x1="12" y1="1" x2="12" y2="3"></line>
-    <line x1="12" y1="21" x2="12" y2="23"></line>
-    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-    <line x1="1" y1="12" x2="3" y2="12"></line>
-    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-    <!-- Right half: moon curve -->
-    <path d="M17 12c0 2.76-2.24 5-5 5" fill="none"></path>
-    <path d="M18.36 5.64L19.78 4.22" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-    <path d="M21 12h2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-    <path d="M18.36 18.36L19.78 19.78" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-  </svg>
+  <span class="system-icon" aria-hidden="true">
+    <Icon class="system-sun"  name="fa6-solid:sun"  width="22" height="22" />
+    <Icon class="system-moon" name="fa6-solid:moon" width="22" height="22" />
+  </span>
 </button>
 
 <style>
@@ -40,28 +30,40 @@
     color: var(--color-background);
   }
 
-  :global([data-theme$="-dark"]) .sun-icon {
+  .sun-icon,
+  .moon-icon,
+  .system-icon {
     display: none;
   }
 
-  :global([data-theme$="-light"]) .moon-icon {
-    display: none;
+  :global([data-theme-mode="light"]) .sun-icon {
+    display: block;
   }
 
-  :global([data-theme$="-light"]) .system-icon {
-    display: none;
+  :global([data-theme-mode="dark"]) .moon-icon {
+    display: block;
   }
 
-  :global([data-theme$="-dark"]) .system-icon {
-    display: none;
+  :global([data-theme-mode="system"]) .system-icon {
+    display: inline-flex;
+    position: relative;
+    width: 22px;
+    height: 22px;
   }
 
-  :global([data-theme$="-system"]) .sun-icon {
-    display: none;
+  .system-icon .system-sun,
+  .system-icon .system-moon {
+    position: absolute;
+    top: 0;
+    left: 0;
   }
 
-  :global([data-theme$="-system"]) .moon-icon {
-    display: none;
+  .system-icon .system-sun {
+    clip-path: polygon(0 0, 50% 0, 50% 100%, 0 100%);
+  }
+
+  .system-icon .system-moon {
+    clip-path: polygon(50% 0, 100% 0, 100% 100%, 50% 100%);
   }
 </style>
 
@@ -87,10 +89,10 @@
   function applyTheme(theme: string) {
     const actualTheme = getActualTheme(theme);
     document.documentElement.setAttribute('data-theme', actualTheme);
+    const mode = theme.endsWith('-system') ? 'system'
+               : theme.endsWith('-light') ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme-mode', mode);
     localStorage.setItem('theme', theme);
-
-    // Force a style recalculation by accessing computed styles
-    // This fixes the mobile repaint issue
     void document.documentElement.offsetHeight;
   }
 
@@ -101,7 +103,7 @@
     const baseTheme = storedTheme.split('-').slice(0, -1).join('-') || 'default';
     const currentMode = getThemeMode(storedTheme);
 
-    // Cycle through: light -> dark -> system -> light
+    // Cycle: light -> dark -> system -> light
     let newMode: 'light' | 'dark' | 'system';
     if (currentMode === 'light') {
       newMode = 'dark';
@@ -111,7 +113,6 @@
       newMode = 'light';
     }
 
-    const newTheme = `${baseTheme}-${newMode}`;
-    applyTheme(newTheme);
+    applyTheme(`${baseTheme}-${newMode}`);
   });
 </script>
