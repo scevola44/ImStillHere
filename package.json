@@ -19,6 +19,7 @@
     "@fontsource-variable/space-grotesk": "^5.2.10",
     "@iconify-json/devicon": "^1.2.57",
     "@iconify-json/devicon-plain": "^1.2.57",
+    "@iconify-json/fa6-solid": "^1.2.4",
     "@iconify-json/mdi": "^1.2.3",
     "@iconify-json/skill-icons": "^1.2.3",
     "@iconify-json/vscode-icons": "^1.2.43",

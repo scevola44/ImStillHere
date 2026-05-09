@@ -83,7 +83,9 @@ const siteRoot = Astro.site ? `${Astro.site.origin}${baseUrl}` : `https://scevol
       function applyTheme(theme) {
         const actualTheme = getActualTheme(theme);
         document.documentElement.setAttribute('data-theme', actualTheme);
-        // Force a style recalculation
+        const mode = theme.endsWith('-system') ? 'system'
+                   : theme.endsWith('-light') ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme-mode', mode);
         void document.documentElement.offsetHeight;
       }
 
