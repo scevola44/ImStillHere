@@ -10,6 +10,15 @@ export default defineConfig({
   site: 'https://scevola44.github.io',
   base: '/ImStillHere/',
   trailingSlash: 'ignore',
+
+  i18n: {
+    defaultLocale: 'en',
+    locales: ['en', 'it'],
+    routing: {
+      prefixDefaultLocale: false,
+    },
+  },
+
   vite: {
     plugins: [tailwindcss()]
   },

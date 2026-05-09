@@ -1,6 +1,7 @@
 ---
 import { Icon } from 'astro-icon/components';
-import localTechData from '../data/tech.json';
+import type { SupportedLocale } from '../i18n/utils';
+import { getTranslations } from '../i18n/utils';
 
 interface Skill {
   name: string;
@@ -13,20 +14,13 @@ interface Category {
   skills: Skill[];
 }
 
-const BASE_URL = import.meta.env.PUBLIC_API_BASE_URL;
-let categories: Category[];
-
-try {
-  if (BASE_URL) {
-    const response = await fetch(`${BASE_URL}/tech`);
-    const data = await response.json();
-    categories = data.categories;
-  } else {
-    categories = localTechData.categories;
-  }
-} catch {
-  categories = localTechData.categories;
+interface Props {
+  lang: SupportedLocale;
+  categories: Category[];
 }
+
+const { lang, categories } = Astro.props;
+const t = getTranslations(lang);
 ---
 
 <section id="tech" class="section-container overflow-hidden">
@@ -34,18 +28,18 @@ try {
     <div class="tech-header flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
       <div>
         <h2 class="text-3xl md:text-4xl font-heading font-bold text-maintext mb-2 flex items-center gap-4">
-          <span class="text-accent">/</span> Tech Stack
+          <span class="text-accent">/</span> {t.tech.heading}
         </h2>
         <p class="text-subtext font-body text-sm max-w-md">
-          Breakdown of my technical skills, categorized by domain and proficiency
+          {t.tech.description}
         </p>
       </div>
 
       <div class="flex flex-wrap gap-4 p-3 rounded-xl bg-accent/5 border border-accent/10 backdrop-blur-sm">
         {[
-          { label: "Expert", level: 3 },
-          { label: "Proficient", level: 2 },
-          { label: "Beginner", level: 1 }
+          { label: t.tech.expert, level: 3 },
+          { label: t.tech.proficient, level: 2 },
+          { label: t.tech.beginner, level: 1 }
         ].map((item, index) => (
           <div class={`flex items-center gap-2 ${index > 0 ? 'md:border-l md:border-white/10 md:pl-4' : ''}`}>
             <div class="flex gap-0.5">

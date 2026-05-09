@@ -1,0 +1,16 @@
+{
+  "name": "Alberto Bandini",
+  "photoUrl": "favicon.svg",
+  "intro": "Full-Stack Developer con oltre 7 anni di esperienza in finanza ed e-commerce. Specializzato nello stack Microsoft, con un track record di modernizzazione di sistemi legacy e coordinamento di team cross-funzionali. Attualmente lavora come Developer Specialist presso Moltiply Group su applicazioni finanziarie di larga scala per i principali istituti bancari italiani.",
+  "introHtml": "Full-Stack Developer con <span class='text-white font-bold'>oltre 7 anni</span> di esperienza in finanza ed e-commerce. Specializzato nello <span class='text-white font-bold'>stack Microsoft</span>, con un track record di modernizzazione di sistemi legacy e coordinamento di team cross-funzionali. Attualmente lavora come Developer Specialist presso <span class='text-white font-bold'>Moltiply Group</span> su applicazioni finanziarie di larga scala per i principali istituti bancari italiani.",
+  "webpageTitle": "Alberto Bandini — Sviluppatore",
+  "resumeUrl": "Alberto_Bandini-Resume.pdf",
+  "socials": [
+    { "name": "GitHub", "url": "https://github.com/Scevola44", "icon": "mdi:github", "showInContact": true },
+    { "name": "LinkedIn", "url": "https://www.linkedin.com/in/albertobandini", "icon": "mdi:linkedin", "showInContact": true },
+    { "name": "Email", "url": "mailto:alberto.bandini.work@posteo.eu", "icon": "mdi:email", "showInContact": true },
+    { "name": "Leetcode", "url": "", "icon": "devicon-plain:leetcode", "showInContact": false },
+    { "name": "Twitter", "url": "", "icon": "mdi:twitter", "showInContact": false },
+    { "name": "Whatsapp", "url": "", "icon": "mdi:whatsapp", "showInContact": false }
+  ]
+}

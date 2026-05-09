@@ -1,7 +1,15 @@
 ---
 import { Icon } from 'astro-icon/components';
 import localData from '../data/home.json';
+import type { SupportedLocale } from '../i18n/utils';
+import { getTranslations } from '../i18n/utils';
 
+interface Props {
+  lang: SupportedLocale;
+}
+
+const { lang } = Astro.props;
+const t = getTranslations(lang);
 ---
 
 <section id="contact" class="section-container">
@@ -9,10 +17,10 @@ import localData from '../data/home.json';
     <div class="space-y-12">
       <div class="contact-header opacity-0 mb-16">
         <h2 class="text-3xl md:text-4xl font-heading font-bold text-maintext mb-2 flex items-center gap-4">
-            <span class="text-accent">/</span> Contact Me
+            <span class="text-accent">/</span> {t.contact.heading}
           </h2>
         <p class="text-subtext font-body text-sm max-w-md">
-          Feel free to reach out. I'm always open to discussing new projects and opportunities.
+          {t.contact.description}
         </p>
       </div>
 

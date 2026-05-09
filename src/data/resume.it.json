@@ -1,0 +1,104 @@
+{
+  "basics": {
+    "name": "Alberto Bandini",
+    "label": "Sviluppatore Software",
+    "email": "alberto.bandini.work@posteo.eu",
+    "location": {
+      "city": "Parma",
+      "countryCode": "IT"
+    },
+    "summary": "Full-Stack Developer con oltre 7 anni di esperienza in finanza ed e-commerce. Specializzato nello stack Microsoft, con un track record di modernizzazione di sistemi legacy e coordinamento di team cross-funzionali. Attualmente lavora come Developer Specialist presso Moltiply Group su applicazioni finanziarie di larga scala per i principali istituti bancari italiani."
+  },
+  "work": [
+    {
+      "company": "Moltiply Group",
+      "position": "Developer Specialist",
+      "location": "Remoto · Milano, IT",
+      "startDate": "2025-02",
+      "endDate": "Present",
+      "highlights": [
+        "Sviluppo di soluzioni backend per piattaforme di gestione prestiti e documenti su larga scala, con alcuni dei più grandi istituti bancari italiani tra i clienti.",
+        "Lavoro principalmente con .NET Framework, SQL Server e Azure DevOps.",
+        "Guida dell'onboarding del team su un nuovo framework di sviluppo AI agentivo, promuovendo l'adozione di pratiche di sviluppo assistito dall'AI.",
+        "Operatività con elevata autonomia all'interno di un team di ~10 persone, in stretta collaborazione con i team tecnici dei clienti."
+      ],
+      "skills": ["C#", ".NET", "SQL Server", "Azure DevOps"]
+    },
+    {
+      "company": "Alten",
+      "position": "Consulente Full-Stack Developer",
+      "location": "Remoto · Milano, IT",
+      "startDate": "2023-02",
+      "endDate": "2024-12",
+      "highlights": [
+        "Ruolo di lead Microsoft developer.",
+        "Lavoro su due clienti Finance con tecnologie che vanno da VB6 a .NET 8.",
+        "Sviluppo di applicazioni web con Angular integrato a .NET API.",
+        "Tutoring di nuovi membri del team, inclusi colleghi stranieri, facilitando la comunicazione tra personale italiano e internazionale.",
+        "Guida del team sia nel coordinamento gestionale con il cliente sia nelle decisioni tecniche chiave."
+      ],
+      "skills": ["C#", ".NET", "Angular", "Azure", "VB6"]
+    },
+    {
+      "company": "7Pixel s.r.l.",
+      "position": "Full-Stack Developer",
+      "location": "Giussago, IT",
+      "startDate": "2020",
+      "endDate": "2023",
+      "highlights": [
+        "Sviluppo di diverse soluzioni CMS per la gestione backend di e-commerce.",
+        "Supporto in importanti transizioni tecnologiche e di business.",
+        "Tutoring di nuove risorse in ingresso in azienda."
+      ],
+      "skills": ["JavaScript", "SQL", "CMS", "E-commerce"]
+    },
+    {
+      "company": "Mentes",
+      "position": "Consulente per Cedacri",
+      "location": "Parma, IT",
+      "startDate": "2018",
+      "endDate": "2019",
+      "highlights": [
+        "Manutenzione e gestione di una piattaforma antifrode, in stretto contatto con i referenti delle banche clienti.",
+        "Supporto alla direzione nell'onboarding di un importante istituto bancario internazionale."
+      ],
+      "skills": ["Anti-frode", "Banking", "Operations"]
+    }
+  ],
+  "education": [
+    {
+      "institution": "Università di Parma",
+      "area": "Informatica",
+      "studyType": "Laurea Triennale",
+      "startDate": "2018",
+      "endDate": "2018",
+      "highlights": []
+    }
+  ],
+  "skills": [
+    {
+      "category": "Linguaggi e Framework",
+      "keywords": ["C#", ".NET", "Python", "SQL", "JavaScript", "Angular", "React", "Swift"]
+    },
+    {
+      "category": "Strumenti",
+      "keywords": ["Git", "SVN", "Azure", "Office", "Linux", "Docker"]
+    },
+    {
+      "category": "Competenze Tecniche",
+      "keywords": ["System Administration", "Networking", "Container Management"]
+    },
+    {
+      "category": "Metodologie",
+      "keywords": ["Agile", "SCRUM", "TDD", "DDD", "CI/CD"]
+    }
+  ],
+  "languages": [
+    { "language": "Italiano", "fluency": "Madrelingua" },
+    { "language": "Inglese", "fluency": "Professionale" },
+    { "language": "Francese", "fluency": "Elementare" },
+    { "language": "Russo", "fluency": "Rudimentale" }
+  ],
+  "certificates": [],
+  "awards": []
+}

@@ -2,6 +2,8 @@
 import ProjectCard from './project-card.astro';
 // Regenerated on every dev/build by scripts/fetch-github-projects.mjs.
 import projectsData from '../data/projects.json';
+import type { SupportedLocale } from '../i18n/utils';
+import { getTranslations } from '../i18n/utils';
 
 interface GhProject {
   name: string;
@@ -15,6 +17,12 @@ interface GhProject {
   updatedAt: string;
 }
 
+interface Props {
+  lang: SupportedLocale;
+}
+
+const { lang } = Astro.props;
+const t = getTranslations(lang);
 const projects = projectsData as GhProject[];
 ---
 
@@ -22,15 +30,15 @@ const projects = projectsData as GhProject[];
   <div class="container mx-auto">
     <div class="mb-16 project-header">
       <h2 class="text-3xl md:text-4xl font-heading font-bold text-maintext mb-2 flex items-center gap-4">
-          <span class="text-accent">/</span> Portfolio
+          <span class="text-accent">/</span> {t.projects.heading}
         </h2>
       <p class="text-subtext font-body text-sm max-w-md">
-        A selection of my GitHub projects, fetched fresh on every build.
+        {t.projects.description}
       </p>
     </div>
 
     {projects.length === 0 ? (
-      <p class="text-subtext font-body text-sm">No projects yet — check back soon.</p>
+      <p class="text-subtext font-body text-sm">{t.projects.empty}</p>
     ) : (
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {projects.map((project) => (

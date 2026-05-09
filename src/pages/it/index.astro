@@ -1,0 +1,29 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Nav from "../../components/nav.astro";
+import Home from "../../components/home.astro";
+import Tech from "../../components/tech.astro";
+import Projects from "../../components/projects.astro";
+import Contact from "../../components/contact.astro";
+import Resume from "../../components/resume.astro";
+import type { SupportedLocale } from '../../i18n/utils';
+
+import localHomeData from '../../data/home.it.json';
+import localResumeData from '../../data/resume.it.json';
+import localTechData from '../../data/tech.it.json';
+
+const lang: SupportedLocale = 'it';
+
+const homeData = localHomeData;
+const techCategories = localTechData.categories;
+const { webpageTitle } = homeData;
+---
+
+<Layout title={webpageTitle} lang={lang}>
+  <Nav lang={lang} />
+  <Home lang={lang} data={homeData as any} />
+  <Resume lang={lang} resumeData={localResumeData as any} resumeUrl={homeData.resumeUrl} />
+  <Projects lang={lang} />
+  <Tech lang={lang} categories={techCategories as any} />
+  <Contact lang={lang} />
+</Layout>
