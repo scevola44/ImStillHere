@@ -1,7 +1,7 @@
 ---
 import { Icon } from 'astro-icon/components';
-import resumeData from '../data/resume.json';
-import homeData from '../data/home.json';
+import type { SupportedLocale } from '../i18n/utils';
+import { getTranslations } from '../i18n/utils';
 
 interface WorkItem {
   company: string;
@@ -41,26 +41,45 @@ interface Certificate {
   url?: string;
 }
 
+interface ResumeData {
+  work?: WorkItem[];
+  education?: EducationItem[];
+  skills?: SkillGroup[];
+  languages?: Language[];
+  certificates?: Certificate[];
+}
+
+interface Props {
+  lang: SupportedLocale;
+  resumeData: ResumeData;
+  resumeUrl: string;
+}
+
+const { lang, resumeData, resumeUrl } = Astro.props;
+const t = getTranslations(lang);
+
 const work = (resumeData.work ?? []) as WorkItem[];
 const education = (resumeData.education ?? []) as EducationItem[];
 const skills = (resumeData.skills ?? []) as SkillGroup[];
 const languages = (resumeData.languages ?? []) as Language[];
 const certificates = (resumeData.certificates ?? []) as Certificate[];
 
-function formatPeriod(start: string, end: string) {
+function formatPeriod(start: string, end: string, locale: SupportedLocale = 'en') {
+  const monthsEn = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  const monthsIt = ['Gen','Feb','Mar','Apr','Mag','Giu','Lug','Ago','Set','Ott','Nov','Dic'];
+  const months = locale === 'it' ? monthsIt : monthsEn;
+  const presentStr = locale === 'it' ? 'Presente' : 'Present';
+
   const fmt = (s: string) => {
     if (!s) return '';
-    if (s.toLowerCase() === 'present') return 'Present';
+    if (s.toLowerCase() === 'present') return presentStr;
     const [y, m] = s.split('-');
     if (!m) return y;
-    const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
     const idx = parseInt(m, 10) - 1;
     return months[idx] ? `${months[idx]} ${y}` : y;
   };
   return `${fmt(start)} — ${fmt(end)}`;
 }
-
-const resumeUrl = (homeData as { resumeUrl?: string }).resumeUrl ?? '';
 ---
 
 <section id="resume" class="section-container max-w-6xl mx-auto overflow-hidden">
@@ -68,10 +87,10 @@ const resumeUrl = (homeData as { resumeUrl?: string }).resumeUrl ?? '';
     <div class="resume-header flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
       <div>
         <h2 class="text-3xl md:text-4xl font-heading font-bold text-maintext mb-2 flex items-center gap-4">
-          <span class="text-accent">/</span> Resume
+          <span class="text-accent">/</span> {t.resume.heading}
         </h2>
         <p class="text-subtext font-body text-sm max-w-md">
-          Experience, education, and skills. Download the full PDF for the long version.
+          {t.resume.description}
         </p>
       </div>
 
@@ -83,7 +102,7 @@ const resumeUrl = (homeData as { resumeUrl?: string }).resumeUrl ?? '';
           class="inline-flex items-center gap-2 px-5 py-2 rounded-full border border-accent/40 bg-accent/10 text-maintext font-body text-sm hover:bg-accent/20 transition-colors"
         >
           <Icon name="mdi:download" class="w-4 h-4" />
-          Download PDF
+          {t.resume.downloadPdf}
         </a>
       )}
     </div>
@@ -91,7 +110,7 @@ const resumeUrl = (homeData as { resumeUrl?: string }).resumeUrl ?? '';
     {/* Experience */}
     {work.length > 0 && (
       <div class="mb-14">
-        <h3 class="text-maintext font-body text-[11px] uppercase tracking-[0.4em] ml-1 mb-6">Experience</h3>
+        <h3 class="text-maintext font-body text-[11px] uppercase tracking-[0.4em] ml-1 mb-6">{t.resume.experience}</h3>
         <div class="space-y-4">
           {work.map((item) => (
             <div class="resume-card bg-accent/5 border border-accent/10 p-4 md:p-6 rounded-2xl hover:border-accent/40 transition-all group">
@@ -101,7 +120,7 @@ const resumeUrl = (homeData as { resumeUrl?: string }).resumeUrl ?? '';
                   <p class="text-accent text-sm">{item.company}{item.location ? ` · ${item.location}` : ''}</p>
                 </div>
                 <span class="font-mono text-xs tracking-widest uppercase text-accent/75 whitespace-nowrap">
-                  {formatPeriod(item.startDate, item.endDate)}
+                  {formatPeriod(item.startDate, item.endDate, lang)}
                 </span>
               </div>
 
@@ -133,7 +152,7 @@ const resumeUrl = (homeData as { resumeUrl?: string }).resumeUrl ?? '';
     {/* Education */}
     {education.length > 0 && (
       <div class="mb-14">
-        <h3 class="text-maintext font-body text-[11px] uppercase tracking-[0.4em] ml-1 mb-6">Education</h3>
+        <h3 class="text-maintext font-body text-[11px] uppercase tracking-[0.4em] ml-1 mb-6">{t.resume.education}</h3>
         <div class="space-y-4">
           {education.map((item) => (
             <div class="resume-card bg-accent/5 border border-accent/10 p-4 md:p-6 rounded-2xl hover:border-accent/40 transition-all">
@@ -145,7 +164,7 @@ const resumeUrl = (homeData as { resumeUrl?: string }).resumeUrl ?? '';
                   <p class="text-accent text-sm">{item.institution}</p>
                 </div>
                 <span class="font-mono text-xs tracking-widest uppercase text-accent/75 whitespace-nowrap">
-                  {formatPeriod(item.startDate, item.endDate)}
+                  {formatPeriod(item.startDate, item.endDate, lang)}
                 </span>
               </div>
               {item.summary && (
@@ -165,7 +184,7 @@ const resumeUrl = (homeData as { resumeUrl?: string }).resumeUrl ?? '';
     {/* Skills */}
     {skills.length > 0 && (
       <div class="mb-14">
-        <h3 class="text-maintext font-body text-[11px] uppercase tracking-[0.4em] ml-1 mb-6">Skills</h3>
+        <h3 class="text-maintext font-body text-[11px] uppercase tracking-[0.4em] ml-1 mb-6">{t.resume.skills}</h3>
         <div class="space-y-4">
           {skills.map((group) => (
             <div class="resume-card bg-accent/5 border border-accent/10 p-4 md:p-5 rounded-2xl">
@@ -192,7 +211,7 @@ const resumeUrl = (homeData as { resumeUrl?: string }).resumeUrl ?? '';
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         {languages.length > 0 && (
           <div>
-            <h3 class="text-maintext font-body text-[11px] uppercase tracking-[0.4em] ml-1 mb-4">Languages</h3>
+            <h3 class="text-maintext font-body text-[11px] uppercase tracking-[0.4em] ml-1 mb-4">{t.resume.languages}</h3>
             <div class="resume-card bg-accent/5 border border-accent/10 p-4 md:p-5 rounded-2xl space-y-2">
               {languages.map((l) => (
                 <div class="flex justify-between text-sm">
@@ -206,7 +225,7 @@ const resumeUrl = (homeData as { resumeUrl?: string }).resumeUrl ?? '';
 
         {certificates.length > 0 && (
           <div>
-            <h3 class="text-maintext font-body text-[11px] uppercase tracking-[0.4em] ml-1 mb-4">Certificates</h3>
+            <h3 class="text-maintext font-body text-[11px] uppercase tracking-[0.4em] ml-1 mb-4">{t.resume.certificates}</h3>
             <div class="resume-card bg-accent/5 border border-accent/10 p-4 md:p-5 rounded-2xl space-y-3">
               {certificates.map((c) => (
                 <div class="text-sm">

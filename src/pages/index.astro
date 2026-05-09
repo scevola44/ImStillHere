@@ -6,38 +6,44 @@ import Tech from "../components/tech.astro";
 import Projects from "../components/projects.astro";
 import Contact from "../components/contact.astro";
 import Resume from "../components/resume.astro";
-import localData from '../data/home.json';
+import type { SupportedLocale } from '../i18n/utils';
 
-interface ProfileData {
-  webpageTitle: string;
-}
+import localHomeData from '../data/home.json';
+import localResumeData from '../data/resume.json';
+import localTechData from '../data/tech.json';
 
-const isApiLive = import.meta.env.PROD; // Auto true in production
+const lang: SupportedLocale = 'en';
+
+const isApiLive = import.meta.env.PROD;
 const BASE_URL = import.meta.env.PUBLIC_API_BASE_URL;
 
-let data: ProfileData; // data as ProfileData
+let homeData: typeof localHomeData = localHomeData;
+let techCategories = localTechData.categories;
 
 if (isApiLive && BASE_URL) {
   try {
-    const response = await fetch(`${BASE_URL}/home`);
-    if (!response.ok) throw new Error('Network response was not ok');
-    data = await response.json();
+    const [homeRes, techRes] = await Promise.all([
+      fetch(`${BASE_URL}/home`),
+      fetch(`${BASE_URL}/tech`),
+    ]);
+    if (homeRes.ok) homeData = await homeRes.json();
+    if (techRes.ok) {
+      const techJson = await techRes.json();
+      techCategories = techJson.categories;
+    }
   } catch (error) {
-    console.error("API Fetch failed, falling back to mock data", error);
-    data = localData as ProfileData;
+    console.error("API Fetch failed, falling back to local data", error);
   }
-} else {
-  data = localData as ProfileData;
 }
 
-const { webpageTitle } = data;
+const { webpageTitle } = homeData;
 ---
 
-<Layout title={webpageTitle}>
-  	<Nav />
-	<Home />
-	<Resume />
-	<Projects />
-	<Tech />
-	<Contact />
+<Layout title={webpageTitle} lang={lang}>
+  <Nav lang={lang} />
+  <Home lang={lang} data={homeData} />
+  <Resume lang={lang} resumeData={localResumeData} resumeUrl={homeData.resumeUrl} />
+  <Projects lang={lang} />
+  <Tech lang={lang} categories={techCategories} />
+  <Contact lang={lang} />
 </Layout>
